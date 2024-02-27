@@ -7,7 +7,6 @@ import { openPopup, closePopup } from "../components/modal.js";
 const placesList = document.querySelector(".places__list");
 
 // Константы
-const popup = document.querySelector(".popup");
 const profileOpenButton = document.querySelector(".profile__edit-button");
 const profileCloseButton = document.querySelector(".popup__close-button_type_edit");
 const newFormOpenButton = document.querySelector(".profile__add-button");
@@ -73,42 +72,6 @@ profileOpenButton.addEventListener("click", openEditProfileForm); // Откры�
 profileCloseButton.addEventListener("click", closeEditProfileForm); // Закрыть по клику "Редактировать профиль"
 newFormOpenButton.addEventListener("click", openNewAddForm); // Открыть по клику "Новое место"
 newFormCloseButton.addEventListener("click", closeNewAddForm); // Закрыть по клику "Новое место"
-
-// Закрытие формы кликом по оверлею
-popup.addEventListener("click", (evt) => { // Форма "Редактировать профиль"
-  if (evt.target === popup) {
-    popup.classList.remove("popup_is-opened");
-  }
-});
-
-popupNew.addEventListener("click", (evt) => { // Форма "Новое место"
-  if (evt.target === popupNew) {
-    popupNew.classList.remove("popup_is-opened");
-  }
-});
-
-popupImage.addEventListener("click", (evt) => { // Картинка
-  if (evt.target === popupImage) {
-    popupImage.classList.remove("popup_is-opened");
-  }
-});
-
-// Функция закрытия формы кнопкой Esc
-function formCloseEsc(evt) { // Форма "Редактировать профиль"
-  if (evt.key === "Escape") {
-    popup.classList.remove("popup_is-opened");
-  }
-
-  if (evt.key === "Escape") { // Форма "Новое место"
-    popupNew.classList.remove("popup_is-opened");
-  }
-
-  if (evt.key === "Escape") { // Картинка
-    popupImage.classList.remove("popup_is-opened");
-  }
-}
-
-document.addEventListener("keydown", formCloseEsc); // Слушатель для Esc
 
 // Функция отправки формы редактирования
 function handleProfileformSubmit(evt) {
