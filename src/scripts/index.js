@@ -7,6 +7,7 @@ import { openPopup, closePopup } from "../components/modal.js";
 const placesList = document.querySelector(".places__list");
 
 // Константы
+const popup = document.querySelector(".popup");
 const profileOpenButton = document.querySelector(".profile__edit-button");
 const profileCloseButton = document.querySelector(".popup__close-button_type_edit");
 const newFormOpenButton = document.querySelector(".profile__add-button");

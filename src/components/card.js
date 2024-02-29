@@ -34,7 +34,7 @@ function deleteCard(cardElement) {
   cardElement.remove();
 }
 
-//Функция лайка карточки
+// Функция лайка карточки
 function toggleLike(evt) {
   evt.target.classList.toggle("card__like-button_is-active");
 }

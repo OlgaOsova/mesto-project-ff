@@ -1,16 +1,16 @@
 export { openPopup, closePopup };
 
 // Функция открытия окна
-function openPopup(popupInfo) {
-  popupInfo.classList.add("popup_is-opened", "popup_is-animated");
-  popupInfo.addEventListener("click", formCloseOverlay);
+function openPopup(popup) {
+  popup.classList.add("popup_is-opened", "popup_is-animated");
+  popup.addEventListener("click", formCloseOverlay);
   document.addEventListener("keydown", formCloseEsc);
 }
 
 // Функция закрытия окна
-function closePopup(popupInfo) {
-  popupInfo.classList.remove("popup_is-opened");
-  popupInfo.removeEventListener("click", formCloseOverlay);
+function closePopup(popup) {
+  popup.classList.remove("popup_is-opened");
+  popup.removeEventListener("click", formCloseOverlay);
   document.removeEventListener("keydown", formCloseEsc);
 }
 
