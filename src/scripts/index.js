@@ -2,6 +2,7 @@ import "../pages/index.css";
 import { initialCards } from "./cards.js";
 import { createCard, deleteCard, toggleLike } from "../components/card.js";
 import { openPopup, closePopup } from "../components/modal.js";
+import { enableValidation, clearValidation, validationConfig } from "../components/validation.js";
 
 // DOM узлы
 const placesList = document.querySelector(".places__list");
@@ -51,6 +52,7 @@ function openEditProfileForm() {
   openPopup(popupInfo);
   nameInput.value = profileTitle.textContent;
   descriptionInput.value = profileDescription.textContent;
+  clearValidation(formEditElement, validationConfig);
 }
 
 // Функция закрытия формы "Редактировать профиль"
@@ -61,6 +63,7 @@ function closeEditProfileForm() {
 // Функция открытия формы "Новое место"
 function openNewAddForm() {
   openPopup(popupNew);
+  clearValidation(formAddElement, validationConfig);
 }
 
 // Функция закрытия формы "Новое место"
@@ -103,3 +106,19 @@ formAddElement.addEventListener("submit", handleAddCardSubmit);
 
 // Вызов функции добавления карточек из массива
 arrInitialCards(initialCards);
+
+// Вызов функции валидации
+enableValidation(validationConfig); 
+
+
+
+
+fetch('https://nomoreparties.co/v1/wff-cohort-8/cards', {
+  headers: {
+    authorization: 'fda0d25e-1116-4785-b3a1-842d34e7432a'
+  }
+})
+  .then(res => res.json())
+  .then((result) => {
+    console.log(result);
+  });
