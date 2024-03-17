@@ -1,4 +1,4 @@
-export { openPopup, closePopup };
+export { openPopup, closePopup, formCloseOverlay };
 
 // Функция открытия окна
 function openPopup(popup) {

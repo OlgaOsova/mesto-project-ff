@@ -20,10 +20,13 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <div
-            class="profile__image"
-            style="background-image: url(<%=require('./images/avatar.jpg')%>)"
-          ></div>
+          <div class="profile__image-container">
+            <div class="profile__image-overlay"></div>
+            <div
+              class="profile__image"
+              style="background-image: url(<%=require('./images/avatar.jpg')%>)"
+            ></div>
+          </div>
           <div class="profile__info">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
             <button class="profile__edit-button" type="button"></button>
@@ -40,7 +43,10 @@
       </footer>
       <div class="popup popup_type_edit">
         <div class="popup__content">
-          <button type="button" class="popup__close popup__close-button_type_edit"></button>
+          <button
+            type="button"
+            class="popup__close popup__close-button_type_edit"
+          ></button>
           <h3 class="popup__title">Редактировать профиль</h3>
           <form class="popup__form" name="edit-profile" novalidate>
             <input
@@ -77,7 +83,10 @@
       </div>
       <div class="popup popup_type_new-card">
         <div class="popup__content">
-          <button type="button" class="popup__close popup__close-button_type_new-card"></button>
+          <button
+            type="button"
+            class="popup__close popup__close-button_type_new-card"
+          ></button>
           <h3 class="popup__title">Новое место</h3>
           <form class="popup__form" name="new-place" novalidate>
             <input
@@ -102,28 +111,63 @@
               required
             />
             <span class="popup__input-error url-input-error"></span>
-            <button type="submit" class="button popup__button">
-              Сохранить
-            </button>
+            <button type="submit" class="button popup__button">Создать</button>
           </form>
         </div>
       </div>
       <div class="popup popup_type_image">
         <div class="popup__content popup__content_content_image">
-          <button type="button" class="popup__close popup__close-button_type_image"></button>
+          <button
+            type="button"
+            class="popup__close popup__close-button_type_image"
+          ></button>
           <img src="" alt="" class="popup__image" />
           <p class="popup__caption"></p>
         </div>
       </div>
     </div>
-    
+    <div class="popup popup_type_avatar">
+      <div class="popup__content">
+        <button
+          type="button"
+          class="popup__close popup__close-button_type_avatar"
+        ></button>
+        <h3 class="popup__title">Обновить аватар</h3>
+        <form class="popup__form" name="edit-avatar" novalidate>
+          <input
+            type="url"
+            name="link"
+            id="link-input"
+            class="popup__input popup__input_type_url"
+            placeholder="Ссылка на картинку"
+            required
+          />
+          <span class="popup__input-error url-input-error"></span>
+          <button type="submit" class="button popup__button">Сохранить</button>
+        </form>
+      </div>
+    </div>
+    <!-- <div class="popup popup_type_confirm">
+      <div class="popup__content">
+        <button
+          type="button"
+          class="popup__close popup__close-button_type_confirm"
+        ></button>
+        <h3 class="popup__title">Вы уверены?</h3>
+        <button type="submit" class="button popup__button">Да</button>
+      </div>
+    </div> -->
+
     <template id="card-template">
       <li class="places__item card">
         <img class="card__image" src="" alt="" />
         <button type="button" class="card__delete-button"></button>
         <div class="card__description">
           <h2 class="card__title"></h2>
-          <button type="button" class="card__like-button"></button>
+          <div class="card__like-button-container">
+            <button type="button" class="card__like-button"></button>
+            <p class="card__like-count"></p>
+          </div>
         </div>
       </li>
     </template>
