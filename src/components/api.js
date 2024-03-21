@@ -13,8 +13,8 @@ const config = {
   baseUrl: "https://nomoreparties.co/v1/wff-cohort-8",
   headers: {
     authorization: "fda0d25e-1116-4785-b3a1-842d34e7432a",
-    "Content-Type": "application/json",
-  },
+    "Content-Type": "application/json"
+  }
 }
 
 // Универсальная функция для проверки и получения данных ответа
@@ -34,14 +34,14 @@ const request = (url, options) => {
 // Получение карточек с сервера
 const getCard = () => {
   return request(`/cards`, {
-    headers: config.headers,
+    headers: config.headers
   });
 }
 
 // Получение информации о пользователе с сервера
 const getProfile = () => {
   return request(`/users/me`, {
-    headers: config.headers,
+    headers: config.headers
   });
 }
 
@@ -57,7 +57,7 @@ const updateProfile = (name, about) => {
     headers: config.headers,
     body: JSON.stringify({
       name: name,
-      about: about,
+      about: about
     }),
   });
 }
@@ -69,7 +69,7 @@ const updateCard = (name, link) => {
     headers: config.headers,
     body: JSON.stringify({
       name: name,
-      link: link,
+      link: link
     }),
   });
 }
@@ -78,7 +78,7 @@ const updateCard = (name, link) => {
 const addLike = (cardId) => {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: "PUT",
-    headers: config.headers,
+    headers: config.headers
   });
 }
 
@@ -86,7 +86,7 @@ const addLike = (cardId) => {
 const deleteLike = (cardId) => {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: "DELETE",
-    headers: config.headers,
+    headers: config.headers
   });
 }
 
@@ -94,7 +94,7 @@ const deleteLike = (cardId) => {
 const deleteCard = (cardId) => {
   return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: "DELETE",
-    headers: config.headers,
+    headers: config.headers
   });
 }
 
@@ -104,7 +104,7 @@ const updateAvatar = (avatar) => {
     method: "PATCH",
     headers: config.headers,
     body: JSON.stringify({
-      avatar: avatar,
-    }),
+      avatar: avatar
+    })
   });
 }
