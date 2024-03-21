@@ -6,7 +6,6 @@ import { getData, updateProfile, updateCard, updateAvatar } from "../components/
 
 // DOM узлы // Константы
 const placesList = document.querySelector(".places__list");
-const closePopups = document.querySelectorAll(".popup");
 const closeButtons = document.querySelectorAll('.popup__close');
 const profileOpenButton = document.querySelector(".profile__edit-button");
 const newFormOpenButton = document.querySelector(".profile__add-button");
