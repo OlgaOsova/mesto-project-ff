@@ -37,7 +37,7 @@ const validationConfig = { // Настройки валидации
   inactiveButtonClass: "popup__button_disabled",
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
-};
+}
 
 let userId = null;
 
@@ -69,7 +69,7 @@ const openImage = (imageSrc, captionTxt) => {
   image.alt = captionTxt;
   imageCaption.textContent = captionTxt;
   openPopup(popupImage);
-};
+}
 
 // Функция открытия формы "Редактировать профиль"
 function openEditProfileForm() {
@@ -136,7 +136,7 @@ const handleAvatarFormSubmit = (evt) => {
       loadingButton(false, buttonTxt);
     });
   clearValidation(popupAvatarForm, validationConfig);
-};
+}
 
 popupAvatarForm.addEventListener("submit", (evt) => { // Обработчик формы аватара
   handleAvatarFormSubmit(evt);
@@ -162,7 +162,7 @@ const handleProfileFormSubmit = (evt) => {
       loadingButton(false, buttonTxt);
     });
   clearValidation(popupInfoForm, validationConfig);
-};
+}
 
 formEditElement.addEventListener("submit", (evt) => {  // Обработчик формы редактирования
   handleProfileFormSubmit(evt);
@@ -188,7 +188,7 @@ const handleAddCardSubmit = (evt) => {
       loadingButton(false, buttonTxt);
     });
   clearValidation(popupNewForm, validationConfig);
-};
+}
 
 formAddElement.addEventListener("submit", (evt) => { // Обработчик добавления карточек
   handleAddCardSubmit(evt);

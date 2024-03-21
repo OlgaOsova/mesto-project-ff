@@ -6,7 +6,7 @@ export {
   deleteLike,
   updateAvatar,
   deleteCard,
-};
+}
 
 // Конфигурация API
 const config = {
@@ -15,7 +15,7 @@ const config = {
     authorization: "fda0d25e-1116-4785-b3a1-842d34e7432a",
     "Content-Type": "application/json",
   },
-};
+}
 
 // Универсальная функция для проверки и получения данных ответа
 const getResponseData = (res) => {
@@ -23,32 +23,32 @@ const getResponseData = (res) => {
     return res.json();
   }
   return Promise.reject(`Ошибка: ${res.status}`);
-};
+}
 
 // Универсальная функция запроса с проверкой ответа
 const request = (url, options) => {
   return fetch(`${config.baseUrl}${url}`, options)
   .then(getResponseData);
-};
+}
 
 // Получение карточек с сервера
 const getCard = () => {
   return request(`/cards`, {
     headers: config.headers,
   });
-};
+}
 
 // Получение информации о пользователе с сервера
 const getProfile = () => {
   return request(`/users/me`, {
     headers: config.headers,
   });
-};
+}
 
 // Параллельный запуск и выполнение созданных промисов
 const getData = () => {
   return Promise.all([getProfile(), getCard()]);
-};
+}
 
 // Сохранение данных пользователя в окне "Редактировать профиль"
 const updateProfile = (name, about) => {
@@ -60,7 +60,7 @@ const updateProfile = (name, about) => {
       about: about,
     }),
   });
-};
+}
 
 // Добавление новой карточки из формы "Новое место"
 const updateCard = (name, link) => {
@@ -72,7 +72,7 @@ const updateCard = (name, link) => {
       link: link,
     }),
   });
-};
+}
 
 // Постановка лайка карточки
 const addLike = (cardId) => {
@@ -80,7 +80,7 @@ const addLike = (cardId) => {
     method: "PUT",
     headers: config.headers,
   });
-};
+}
 
 // Снятие лайка карточки
 const deleteLike = (cardId) => {
@@ -88,7 +88,7 @@ const deleteLike = (cardId) => {
     method: "DELETE",
     headers: config.headers,
   });
-};
+}
 
 // Удаление карточки пользователя
 const deleteCard = (cardId) => {
@@ -96,7 +96,7 @@ const deleteCard = (cardId) => {
     method: "DELETE",
     headers: config.headers,
   });
-};
+}
 
 // Обновление аватара пользователя
 const updateAvatar = (avatar) => {
@@ -107,4 +107,4 @@ const updateAvatar = (avatar) => {
       avatar: avatar,
     }),
   });
-};
+}

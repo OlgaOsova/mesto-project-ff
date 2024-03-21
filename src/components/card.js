@@ -77,4 +77,4 @@ const toggleLike = (evt, cardId) => {
         console.error(err);
       });
   }
-};
+}
