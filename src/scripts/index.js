@@ -1,18 +1,15 @@
 import "../pages/index.css";
 import { createCard, toggleLike, removeCard } from "../components/card.js";
-import { openPopup, closePopup, formCloseOverlay } from "../components/modal.js";
+import { openPopup, closePopup, closeFormOverlay } from "../components/modal.js";
 import { enableValidation, clearValidation } from "../components/validation.js";
 import { getData, updateProfile, updateCard, updateAvatar } from "../components/api.js";
 
 // DOM узлы // Константы
 const placesList = document.querySelector(".places__list");
-const popups = document.querySelectorAll(".popup");
+const closePopups = document.querySelectorAll(".popup");
+const closeButtons = document.querySelectorAll('.popup__close');
 const profileOpenButton = document.querySelector(".profile__edit-button");
-const profileCloseButton = document.querySelector(".popup__close-button_type_edit");
 const newFormOpenButton = document.querySelector(".profile__add-button");
-const newFormCloseButton = document.querySelector(".popup__close-button_type_new-card");
-const imageCloseButton = document.querySelector(".popup__close-button_type_image");
-const avatarCloseButton = document.querySelector(".popup__close-button_type_avatar");
 const popupAvatarForm = document.forms["edit-avatar"];
 const popupInfoForm = document.forms["edit-profile"];
 const popupNewForm = document.forms["new-place"];
@@ -74,10 +71,6 @@ const openImage = (imageSrc, captionTxt) => {
   openPopup(popupImage);
 };
 
-imageCloseButton.addEventListener("click", () => { // Слушатель закрытия кликом попап-картинки
-  closePopup(popupImage);
-});
-
 // Функция открытия формы "Редактировать профиль"
 function openEditProfileForm() {
   nameInput.value = profileTitle.textContent;
@@ -113,23 +106,22 @@ function closeAvatarForm() {
   closePopup(popupAvatar);
 }
 
-// Слушатели событий попапов
+// Обработчики для открытия попапов кликом
 profileOpenButton.addEventListener("click", openEditProfileForm); // Открыть по клику "Редактировать профиль"
-profileCloseButton.addEventListener("click", closeEditProfileForm); // Закрыть по клику "Редактировать профиль"
 newFormOpenButton.addEventListener("click", openNewAddForm); // Открыть по клику "Новое место"
-newFormCloseButton.addEventListener("click", closeNewAddForm); // Закрыть по клику "Новое место"
-avatarCloseButton.addEventListener("click", closeAvatarForm); // Закрыть по клику "Обновить аватар"
-profileImage.addEventListener("click", openEditAvatarForm); // Закрыть по клику "Обновить аватар"
+profileImage.addEventListener("click", openEditAvatarForm); // Открыть по клику "Обновить аватар"
 
-popups.forEach((popup) => {
-  popup.addEventListener("mousedown", formCloseOverlay);
+// Универсальный обработчик для закрытия попапов кликом
+closeButtons.forEach((button) => {
+  const popup = button.closest('.popup');
+  button.addEventListener('click', () => closePopup(popup));
 });
 
 // Функция изменения формы "Обновить аватар"
 const handleAvatarFormSubmit = (evt) => {
   evt.preventDefault();
   const buttonTxt = evt.submitter;
-  buttonLoading(true, buttonTxt);
+  loadingButton(true, buttonTxt);
 
   updateAvatar(avatarLinkInput.value)
     .then((userData) => {
@@ -141,12 +133,12 @@ const handleAvatarFormSubmit = (evt) => {
       console.error(err);
     })
     .finally(() => {
-      buttonLoading(false, buttonTxt);
+      loadingButton(false, buttonTxt);
     });
   clearValidation(popupAvatarForm, validationConfig);
 };
 
-popupAvatarForm.addEventListener("submit", (evt) => { // Cлушатель формы аватара
+popupAvatarForm.addEventListener("submit", (evt) => { // Обработчик формы аватара
   handleAvatarFormSubmit(evt);
 });
 
@@ -154,7 +146,7 @@ popupAvatarForm.addEventListener("submit", (evt) => { // Cлушатель фо�
 const handleProfileFormSubmit = (evt) => {
   evt.preventDefault();
   const buttonTxt = evt.submitter;
-  buttonLoading(true, buttonTxt);
+  loadingButton(true, buttonTxt);
 
   updateProfile(nameInput.value, descriptionInput.value)
     .then((userData) => {
@@ -167,12 +159,12 @@ const handleProfileFormSubmit = (evt) => {
       console.error(err);
     })
     .finally(() => {
-      buttonLoading(false, buttonTxt);
+      loadingButton(false, buttonTxt);
     });
   clearValidation(popupInfoForm, validationConfig);
 };
 
-formEditElement.addEventListener("submit", (evt) => {  // Слушатель формы редактирования
+formEditElement.addEventListener("submit", (evt) => {  // Обработчик формы редактирования
   handleProfileFormSubmit(evt);
 });
 
@@ -180,7 +172,7 @@ formEditElement.addEventListener("submit", (evt) => {  // Слушатель ф�
 const handleAddCardSubmit = (evt) => {
   evt.preventDefault();
   const buttonTxt = evt.submitter;
-  buttonLoading(true, buttonTxt);
+  loadingButton(true, buttonTxt);
 
   updateCard(titleInput.value, linkInput.value)
     .then((cardData) => {
@@ -193,17 +185,17 @@ const handleAddCardSubmit = (evt) => {
       console.error(err);
     })
     .finally(() => {
-      buttonLoading(false, buttonTxt);
+      loadingButton(false, buttonTxt);
     });
   clearValidation(popupNewForm, validationConfig);
 };
 
-formAddElement.addEventListener("submit", (evt) => { // Cлушатель добавления карточек
+formAddElement.addEventListener("submit", (evt) => { // Обработчик добавления карточек
   handleAddCardSubmit(evt);
 });
 
 // Функция уведомления на кнопке о процессе загрузки
-function buttonLoading(isLoading, buttonTxt) {
+function loadingButton(isLoading, buttonTxt) {
   if (isLoading) {
     buttonTxt.textContent = "Сохранение...";
     buttonTxt.classList.add("popup__button_loading");
