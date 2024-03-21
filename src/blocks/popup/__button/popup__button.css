@@ -26,6 +26,15 @@
   cursor: default;
 }
 
+.popup__button_loading:disabled {
+  color: white;
+  background: #000;
+  border: none;
+  transition: visibility 0s, background-color 0.3s;
+  border-radius: 2px;
+  cursor: default;
+}
+
 @media screen and (max-width: 568px) {
   .popup__button {
     font-size: 14px;

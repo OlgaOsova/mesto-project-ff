@@ -1,13 +1,11 @@
-export {createCard, toggleLike, deleteMyCard};
-import { addLike, deleteLike } from "./api";
+export { createCard, toggleLike, removeCard };
+import { addLike, deleteLike, deleteCard } from "./api";
 
 // Темплейт карточки
 const cardTmp = document.querySelector("#card-template").content;
 
-/*const popupConfirm = document.querySelector(".popup_type_confirm");*/
-
 // Функция создания карточки
-function createCard(dataCard, onDelete, onLike, onOpenImage, userId) {
+function createCard(dataCard, onDelete, onLike, openImage, userId) {
   const cardElement = cardTmp.querySelector(".card").cloneNode(true);
   const deleteButton = cardElement.querySelector(".card__delete-button");
   const cardImage = cardElement.querySelector(".card__image");
@@ -20,8 +18,8 @@ function createCard(dataCard, onDelete, onLike, onOpenImage, userId) {
   cardImage.src = dataCard.link;
   cardImage.alt = dataCard.name;
   cardTitle.textContent = dataCard.name;
-
   likeCount.textContent = dataCard.likes.length;
+
   const isLiked = dataCard.likes.some((like) => like._id === userId);
 
   if (isLiked) {
@@ -29,10 +27,9 @@ function createCard(dataCard, onDelete, onLike, onOpenImage, userId) {
   }
 
   if (userId === dataCard.owner._id) {
-    deleteButton.addEventListener("click", (evt) => { // Удаление карточки кликом
-      onDelete(evt, dataCard._id)
-      
-  });
+    deleteButton.addEventListener("click", () => { // Удаление карточки кликом
+      onDelete(cardElement, dataCard._id);
+    });
   } else {
     deleteButton.remove();
   }
@@ -42,15 +39,19 @@ function createCard(dataCard, onDelete, onLike, onOpenImage, userId) {
   });
 
   cardImage.addEventListener("click", () => { // Попап-картинка по клику
-    onOpenImage(dataCard.link, dataCard.name);
+    openImage(dataCard.link, dataCard.name);
   });
 
   return cardElement;
 }
 
 // Функция удаления карточки
-function deleteMyCard(cardElement) {
-  cardElement.remove();
+function removeCard(cardElement, cardId) {
+  deleteCard(cardId)
+    .then(() => cardElement.remove())
+    .catch((err) => {
+      console.error(err);
+    });
 }
 
 // Функция лайка карточки
@@ -59,21 +60,21 @@ const toggleLike = (evt, cardId) => {
 
   if (evt.target.classList.contains("card__like-button_is-active")) {
     deleteLike(cardId)
-    .then((data) => {
-      evt.target.classList.remove("card__like-button_is-active");
-      currentLikes.textContent = data.likes.length;
-    })
-    .catch((err) => {
-      console.error(err);
-    })
+      .then((data) => {
+        evt.target.classList.remove("card__like-button_is-active");
+        currentLikes.textContent = data.likes.length;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   } else {
     addLike(cardId)
-    .then((data) => {
-      evt.target.classList.add("card__like-button_is-active");
-      currentLikes.textContent = data.likes.length;
-    })
-    .catch((err) => {
-      console.error(err);
-    })
-  } 
-}
+      .then((data) => {
+        evt.target.classList.add("card__like-button_is-active");
+        currentLikes.textContent = data.likes.length;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+};
