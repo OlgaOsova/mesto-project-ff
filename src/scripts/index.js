@@ -6,6 +6,7 @@ import { getData, updateProfile, updateCard, updateAvatar } from "../components/
 
 // DOM узлы // Константы
 const placesList = document.querySelector(".places__list");
+const closePopups = document.querySelectorAll(".popup");
 const closeButtons = document.querySelectorAll('.popup__close');
 const profileOpenButton = document.querySelector(".profile__edit-button");
 const newFormOpenButton = document.querySelector(".profile__add-button");
@@ -105,7 +106,7 @@ function closeAvatarForm() {
   closePopup(popupAvatar);
 }
 
-// Обработчики для открытия попапов кликом
+// Обработчики открытия попапов
 profileOpenButton.addEventListener("click", openEditProfileForm); // Открыть по клику "Редактировать профиль"
 newFormOpenButton.addEventListener("click", openNewAddForm); // Открыть по клику "Новое место"
 profileImage.addEventListener("click", openEditAvatarForm); // Открыть по клику "Обновить аватар"
@@ -114,6 +115,10 @@ profileImage.addEventListener("click", openEditAvatarForm); // Открыть п
 closeButtons.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
+});
+
+closePopups.forEach((popup) => {
+  popup.addEventListener("mousedown", closeFormOverlay);
 });
 
 // Функция изменения формы "Обновить аватар"
@@ -135,7 +140,7 @@ const handleAvatarFormSubmit = (evt) => {
       loadingButton(false, buttonTxt);
     });
   clearValidation(popupAvatarForm, validationConfig);
-}
+};
 
 popupAvatarForm.addEventListener("submit", (evt) => { // Обработчик формы аватара
   handleAvatarFormSubmit(evt);
@@ -165,7 +170,7 @@ const handleProfileFormSubmit = (evt) => {
 
 formEditElement.addEventListener("submit", (evt) => {  // Обработчик формы редактирования
   handleProfileFormSubmit(evt);
-});
+})
 
 // Функция добавления новой карточки из формы "Новое место"
 const handleAddCardSubmit = (evt) => {
