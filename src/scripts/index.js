@@ -140,7 +140,7 @@ const handleAvatarFormSubmit = (evt) => {
       loadingButton(false, buttonTxt);
     });
   clearValidation(popupAvatarForm, validationConfig);
-};
+}
 
 popupAvatarForm.addEventListener("submit", (evt) => { // Обработчик формы аватара
   handleAvatarFormSubmit(evt);
